@@ -41,7 +41,7 @@ class Spaceship(Sprite):
 
     def draw(self, screen):
         screen.blit(self.image, (self.rect.x, self.rect.y))
-        if self.rect.x <= 0:
+        if self.rect.x <= -self.SHIP_WIDTH:
             screen.blit(self.image, (self.rect.x + SCREEN_WIDTH, self.rect.y))
             self.rect.x = (SCREEN_WIDTH - self.SHIP_WIDTH)     
         if self.rect.x >= SCREEN_WIDTH:
