@@ -21,29 +21,29 @@ class Spaceship(Sprite):
         elif user_input[pygame.K_RIGHT]:
             self.move_right()
         elif user_input[pygame.K_UP]:
-            if self.rect.y >= 0:
-                self.move_up()
+            self.move_up()
         elif user_input[pygame.K_DOWN]:
-            if (self.rect.y + self.SHIP_HEIGHT) <= SCREEN_HEIGHT:
-                self.move_down()
+            self.move_down()
 
     def move_left(self):
-        self.rect.x -=  self.SHIP_SPEED 
+        if self.rect.x <= -self.SHIP_WIDTH:
+            self.rect.x += SCREEN_WIDTH
+        else:    
+            self.rect.x -=  self.SHIP_SPEED
 
     def move_right(self):
-        self.rect.x +=  self.SHIP_SPEED 
+        if self.rect.x >= SCREEN_WIDTH:
+            self.rect.x = 0
+        else:    
+            self.rect.x +=  self.SHIP_SPEED
 
     def move_up(self):
-        self.rect.y -=  self.SHIP_SPEED 
+        if self.rect.y > 0:
+            self.rect.y -=  self.SHIP_SPEED 
 
     def move_down(self):
-        self.rect.y +=  self.SHIP_SPEED   
+        if (self.rect.y + self.SHIP_HEIGHT) < SCREEN_HEIGHT:
+            self.rect.y +=  self.SHIP_SPEED   
 
     def draw(self, screen):
         screen.blit(self.image, (self.rect.x, self.rect.y))
-        if self.rect.x <= -self.SHIP_WIDTH:
-            screen.blit(self.image, (self.rect.x + SCREEN_WIDTH, self.rect.y))
-            self.rect.x = (SCREEN_WIDTH - self.SHIP_WIDTH)     
-        if self.rect.x >= SCREEN_WIDTH:
-            screen.blit(self.image, (self.rect.x - SCREEN_WIDTH, self.rect.y))
-            self.rect.x = 0
