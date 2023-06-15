@@ -2,7 +2,7 @@ import random
 import pygame
 from pygame.sprite import Sprite
 from game.components.bullets.bullet import Bullet
-from game.utils.constants import ENEMY_1, ENEMY_2, SCREEN_HEIGHT, SCREEN_WIDTH
+from game.utils.constants import ENEMY_1, EXPLOSION, ENEMY_2, SCREEN_HEIGHT, SCREEN_WIDTH
 
 class Enemy(Sprite):
     SHIP_WIDTH = 40
@@ -14,9 +14,12 @@ class Enemy(Sprite):
     MOV_X = {0: 'left', 1: 'right'}
     IMAGE = {1: ENEMY_1, 2: ENEMY_2}
 
+
     def __init__(self):
         self.image = self.IMAGE[random.randint(1,2)]
+        self.explosion = EXPLOSION
         self.image = pygame.transform.scale(self.image,(self.SHIP_WIDTH, self.SHIP_HEIGHT))
+        self.explosion = pygame.transform.scale(self.explosion,(self.SHIP_WIDTH, self.SHIP_HEIGHT))
         self.rect = self.image.get_rect()
         self.rect.y = self.Y_POS
         self.rect.x = self.X_POS_LIST[random.randint(0, 10)]
@@ -26,7 +29,6 @@ class Enemy(Sprite):
         self.move_x_for = random.randint(30, 100)
         self.index = 0
         self.type = 'enemy'
-        self.shooting_time = random.randint(30, 50)
 
     def update(self, ships, game):
         self.rect.y += self.speed_y
@@ -59,8 +61,5 @@ class Enemy(Sprite):
             self.index = 0
     
     def shoot(self, bullet_Manager):
-        current_time = pygame.time.get_ticks()
-        if self.shooting_time <= current_time:
             bullet = Bullet(self)
             bullet_Manager.add_bullet(bullet)
-            self.shooting_time += random.randint(30, 50)

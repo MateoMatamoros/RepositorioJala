@@ -5,7 +5,7 @@ class BulletManager:
     def __init__(self):
         self.bullets = []
         self.enemy_bullets = []
-
+        
     def update (self, game):
         for bullet in self.enemy_bullets:
             bullet.update(self.enemy_bullets)
@@ -19,8 +19,10 @@ class BulletManager:
         for bullet in self.bullets:
             bullet.update(self.bullets)
 
-            if bullet.rect.colliderect(game.enemy_mananger.rect) and bullet.owner == 'player':
-                self.bullets.remove(bullet)
+            for enemy in game.enemy_manager.enemies:
+                if bullet.rect.colliderect(enemy.rect) and bullet.owner == 'player':
+                    self.bullets.remove(bullet)
+                    game.enemy_manager.enemies.remove(enemy)
                 
 
     def draw (self, screen):
@@ -33,7 +35,7 @@ class BulletManager:
 
     def add_bullet(self, bullet):
         if bullet.owner == 'enemy' and len (self.enemy_bullets)<1:
-            self.enemy_bullets.append(bullet)
+                self.enemy_bullets.append(bullet)
 
         if bullet.owner == 'player' and len (self.bullets)<1:
-            self.enemy_bullets.append(bullet)
+            self.bullets.append(bullet)

@@ -1,5 +1,6 @@
 import pygame
 from game.components.bullets.bullet_manager import BulletManager
+from game.components.enemies.enemy import Enemy
 from game.components.enemies.enemy_manager import EnemyManager
 
 from game.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, DEFAULT_TYPE
@@ -19,7 +20,8 @@ class Game:
         self.player = Spaceship()
         self.enemy_manager = EnemyManager()
         self.bullet_manager = BulletManager()
-        
+        pygame.mixer.music.load('Music.mp3')
+        pygame.mixer.music.play(3)
 
 
     def run(self):
