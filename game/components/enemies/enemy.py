@@ -1,6 +1,7 @@
 import random
 import pygame
 from pygame.sprite import Sprite
+from game.components.bullets.bullet import Bullet
 from game.utils.constants import ENEMY_1, ENEMY_2, SCREEN_HEIGHT, SCREEN_WIDTH
 
 class Enemy(Sprite):
@@ -9,24 +10,27 @@ class Enemy(Sprite):
     Y_POS = 20
     X_POS_LIST = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550]
     SPEED_Y = 1
-    SPEED_X = 5
+    SPEED_X = [5,6,7,8,9,10]
     MOV_X = {0: 'left', 1: 'right'}
-    ENEMY_ALEATORY = [ENEMY_1, ENEMY_2]
+    IMAGE = {1: ENEMY_1, 2: ENEMY_2}
 
     def __init__(self):
-        self.image = self.ENEMY_ALEATORY[random.randint(0,1)]
+        self.image = self.IMAGE[random.randint(1,2)]
         self.image = pygame.transform.scale(self.image,(self.SHIP_WIDTH, self.SHIP_HEIGHT))
         self.rect = self.image.get_rect()
         self.rect.y = self.Y_POS
         self.rect.x = self.X_POS_LIST[random.randint(0, 10)]
-        self.speed_x = self.SPEED_X
+        self.speed_x = self.SPEED_X[random.randint(0, 5)]
         self.speed_y = self.SPEED_Y
         self.movement_x = self.MOV_X[random.randint(0,1)]
         self.move_x_for = random.randint(30, 100)
         self.index = 0
+        self.type = 'enemy'
+        self.shooting_time = random.randint(30, 50)
 
-    def update(self, ships):
+    def update(self, ships, game):
         self.rect.y += self.speed_y
+        self.shoot(game.bullet_manager)
 
         if self.movement_x == 'left':
             self.rect.x -= self.speed_x
@@ -37,6 +41,10 @@ class Enemy(Sprite):
 
         if self.rect.y >= SCREEN_HEIGHT:
             ships.remove(self)
+
+        if self.rect.colliderect(game.player.rect):
+                game.playing = False
+                pygame.time.delay(1100)
 
     def draw(self, screen):
         screen.blit(self.image, (self.rect.x, self.rect.y))
@@ -49,3 +57,10 @@ class Enemy(Sprite):
         elif (self.index >= self.move_x_for and self.movement_x == 'left') or (self.rect.x <=10):
             self.movement_x = 'right'
             self.index = 0
+    
+    def shoot(self, bullet_Manager):
+        current_time = pygame.time.get_ticks()
+        if self.shooting_time <= current_time:
+            bullet = Bullet(self)
+            bullet_Manager.add_bullet(bullet)
+            self.shooting_time += random.randint(30, 50)
