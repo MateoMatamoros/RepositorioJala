@@ -10,7 +10,7 @@ class Enemy(Sprite):
     Y_POS = 20
     X_POS_LIST = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550]
     SPEED_Y = 1
-    SPEED_X = [5,6,7,8,9,10]
+    SPEED_X = [5, 6, 7, 8, 9, 10]
     MOV_X = {0: 'left', 1: 'right'}
     IMAGE = {1: ENEMY_1, 2: ENEMY_2}
 
@@ -45,6 +45,7 @@ class Enemy(Sprite):
             ships.remove(self)
 
         if self.rect.colliderect(game.player.rect):
+                game.death_count += 1
                 game.playing = False
                 pygame.time.delay(1100)
 

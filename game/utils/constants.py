@@ -21,6 +21,8 @@ OVER = pygame.image.load(os.path.join(IMG_DIR, 'Other/GameOver.png'))
 
 EXPLOSION = pygame.image.load(os.path.join(IMG_DIR, 'Other/Explosion.png'))
 
+WALLPAPER = pygame.image.load(os.path.join(IMG_DIR, 'Other/Wallpaper.png'))
+
 
 
 DEFAULT_TYPE = "default"
