@@ -15,7 +15,7 @@ SHIELD = pygame.image.load(os.path.join(IMG_DIR, 'Other/shield.png'))
 
 BG = pygame.image.load(os.path.join(IMG_DIR, 'Other/Track.png'))
 
-HEART = pygame.image.load(os.path.join(IMG_DIR, 'Other/SmallHeart.png'))
+HEART = pygame.image.load(os.path.join(IMG_DIR, 'Other/Heart.png'))
 
 OVER = pygame.image.load(os.path.join(IMG_DIR, 'Other/GameOver.png'))
 
@@ -23,10 +23,13 @@ EXPLOSION = pygame.image.load(os.path.join(IMG_DIR, 'Other/Explosion.png'))
 
 WALLPAPER = pygame.image.load(os.path.join(IMG_DIR, 'Other/Wallpaper.png'))
 
-
+BULLETS = pygame.image.load(os.path.join(IMG_DIR, 'Other/Bullets.png'))
 
 DEFAULT_TYPE = "default"
 SHIELD_TYPE = 'shield'
+HEART_TYPE = 'heart'
+BULLETS_TYPE = 'burst'
+MINIATURE_TYPE = 'miniature'
 
 SPACESHIP = pygame.image.load(os.path.join(IMG_DIR, "Spaceship/spaceship.png"))
 SPACESHIP_SHIELD = pygame.image.load(os.path.join(IMG_DIR, "Spaceship/spaceship_shield.png"))

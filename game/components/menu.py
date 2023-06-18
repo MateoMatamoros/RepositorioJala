@@ -7,15 +7,18 @@ class Menu:
     HALF_SCREEN_WIDTH = SCREEN_WIDTH // 2
     HALF_SCREEN_HEIGHT = SCREEN_HEIGHT //2
 
-    def __init__(self, message, message_2, screen):
+    def __init__(self, message, message_2, message_3, screen):
         screen.fill((255, 255, 255))
         self.font = pygame.font.Font(FONT_STYLE, 50)
-        self.text = self.font.render(message, True, (255,255,255))
+        self.text = self.font.render(message, True, (0,0,0))
         self.text_rect = self.text.get_rect()
         self.text_rect.center = (self.HALF_SCREEN_WIDTH, self.HALF_SCREEN_HEIGHT + 100)
-        self.text_2 = self.font.render(message_2, True, (255,255,255))
+        self.text_2 = self.font.render(message_2, True, (0,0,0))
         self.text_rect_2 = self.text_2.get_rect()
         self.text_rect_2.center = (self.HALF_SCREEN_WIDTH, self.HALF_SCREEN_HEIGHT + 200)
+        self.text_3 = self.font.render(message_3, True, (0,0,0))
+        self.text_rect_3 = self.text_2.get_rect()
+        self.text_rect_3.center = (self.HALF_SCREEN_WIDTH, self.HALF_SCREEN_HEIGHT + 300)
         self.wallpaper = pygame.transform.scale (WALLPAPER, (SCREEN_WIDTH, SCREEN_HEIGHT))
         self.icon = pygame.transform.scale (ICON, (80,120))
         self. game_over = pygame.transform.scale (OVER, (350,50))
@@ -33,6 +36,7 @@ class Menu:
         screen.blit(self.enemy_2, (self.HALF_SCREEN_WIDTH - 200, self.HALF_SCREEN_HEIGHT -270))
         screen.blit(self.text, self.text_rect)
         screen.blit(self.text_2, self.text_rect_2)
+        screen.blit(self.text_3, self.text_rect_3)
         if game.death_count >0:
             screen.blit(self.game_over, (self.HALF_SCREEN_WIDTH - 190, self.HALF_SCREEN_HEIGHT -120))
 
@@ -47,10 +51,13 @@ class Menu:
     def reset_screen_color(self, screen):
         screen.fill((255, 255, 255))
 
-    def update_message(self, message, message_2):
-        self.text = self.font.render(message, True, (255,255,255))
+    def update_message(self, message, message_2, message_3):
+        self.text = self.font.render(message, True, (0,0,0))
         self.text_rect = self.text.get_rect()
-        self.text_rect.center = (self.HALF_SCREEN_WIDTH, self.HALF_SCREEN_HEIGHT + 100)
-        self.text_2 = self.font.render(message_2, True, (255,255,255))
+        self.text_rect.center = (self.HALF_SCREEN_WIDTH, self.HALF_SCREEN_HEIGHT + 90)
+        self.text_2 = self.font.render(message_2, True, (0,0,0))
         self.text_rect_2 = self.text_2.get_rect()
-        self.text_rect_2.center = (self.HALF_SCREEN_WIDTH, self.HALF_SCREEN_HEIGHT + 200)
+        self.text_rect_2.center = (self.HALF_SCREEN_WIDTH, self.HALF_SCREEN_HEIGHT + 180)
+        self.text_3 = self.font.render(message_3, True, (0,0,0))
+        self.text_rect_3 = self.text_3.get_rect()
+        self.text_rect_3.center = (self.HALF_SCREEN_WIDTH, self.HALF_SCREEN_HEIGHT + 270)

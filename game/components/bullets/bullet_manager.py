@@ -1,5 +1,7 @@
 import pygame
 
+from game.utils.constants import BULLETS_TYPE, DEFAULT_TYPE, HEART_TYPE, SHIELD_TYPE
+
 
 class BulletManager:
     def __init__(self):
@@ -18,15 +20,24 @@ class BulletManager:
                     self.bullets.remove(bullet)
 
         for bullet in self.enemy_bullets:
-            bullet.update(self.enemy_bullets)
+            for enemy in self.enemy_bullets:
+                bullet.update(self.enemy_bullets)
 
             if bullet.rect.colliderect(game.player.rect) and bullet.owner == 'enemy':
-                game.death_count += 1
-                self.enemy_bullets.remove(bullet)
-                game.playing = False
-                pygame.time.delay(1000)
-                break
+                if game.player.power_up_type == HEART_TYPE:
+                    if bullet.rect.colliderect(game.player.rect) and bullet.owner == 'enemy':
+                        game.player_has_power_up = False
+                        game.player.power_up_type = DEFAULT_TYPE
+                        
+                elif game.player.power_up_type != SHIELD_TYPE and game.player.power_up_type != HEART_TYPE: 
+                    game.death_count += 1
+                    game.playing = False
+                    pygame.time.delay(1000)
+                    break
 
+                self.enemy_bullets.remove(bullet)
+
+                
     def draw (self, screen):
         for bullet in self.bullets:
             bullet.draw(screen)
@@ -34,11 +45,17 @@ class BulletManager:
         for bullet in self.enemy_bullets:
             bullet.draw(screen)
 
-    def add_bullet(self, bullet):
-        if bullet.owner == 'player' and len(self.bullets) < 3:
-            self.bullets.append(bullet)
+    def add_bullet(self, bullet, game):
+        if bullet.owner == 'player':
+            if game.player.power_up_type != BULLETS_TYPE:   
+                if len(self.bullets) < 3:
+                    self.bullets.append(bullet)
+            else:
+                if len(self.bullets) < 100:
+                    self.bullets.append(bullet)
+
         elif bullet.owner == 'enemy' and len(self.enemy_bullets) < 1:
-                self.enemy_bullets.append(bullet)
+            self.enemy_bullets.append(bullet)
     
     def reset(self):
         self.bullets = []

@@ -2,7 +2,7 @@ import random
 import pygame
 from pygame.sprite import Sprite
 from game.components.bullets.bullet import Bullet
-from game.utils.constants import ENEMY_1, EXPLOSION, ENEMY_2, SCREEN_HEIGHT, SCREEN_WIDTH
+from game.utils.constants import DEFAULT_TYPE, ENEMY_1, ENEMY_2, HEART_TYPE, SCREEN_HEIGHT, SCREEN_WIDTH, SHIELD_TYPE
 
 class Enemy(Sprite):
     SHIP_WIDTH = 40
@@ -17,9 +17,7 @@ class Enemy(Sprite):
 
     def __init__(self):
         self.image = self.IMAGE[random.randint(1,2)]
-        self.explosion = EXPLOSION
         self.image = pygame.transform.scale(self.image,(self.SHIP_WIDTH, self.SHIP_HEIGHT))
-        self.explosion = pygame.transform.scale(self.explosion,(self.SHIP_WIDTH, self.SHIP_HEIGHT))
         self.rect = self.image.get_rect()
         self.rect.y = self.Y_POS
         self.rect.x = self.X_POS_LIST[random.randint(0, 10)]
@@ -32,7 +30,7 @@ class Enemy(Sprite):
 
     def update(self, ships, game):
         self.rect.y += self.speed_y
-        self.shoot(game.bullet_manager)
+        self.shoot(game)
 
         if self.movement_x == 'left':
             self.rect.x -= self.speed_x
@@ -45,9 +43,16 @@ class Enemy(Sprite):
             ships.remove(self)
 
         if self.rect.colliderect(game.player.rect):
-                game.death_count += 1
-                game.playing = False
-                pygame.time.delay(1100)
+                if game.player.power_up_type == HEART_TYPE:
+                    if self.rect.colliderect(game.player.rect): 
+                        game.enemy_manager.enemies.remove(self)   
+                        game.player_has_power_up = False
+                        game.player.power_up_type = DEFAULT_TYPE
+
+                elif game.player.power_up_type != SHIELD_TYPE and game.player.power_up_type != HEART_TYPE: 
+                    game.death_count += 1
+                    game.playing = False
+                    pygame.time.delay(1100)
 
     def draw(self, screen):
         screen.blit(self.image, (self.rect.x, self.rect.y))
@@ -61,6 +66,6 @@ class Enemy(Sprite):
             self.movement_x = 'right'
             self.index = 0
     
-    def shoot(self, bullet_Manager):
+    def shoot(self, game):
             bullet = Bullet(self)
-            bullet_Manager.add_bullet(bullet)
+            game.bullet_manager.add_bullet(bullet, game)
