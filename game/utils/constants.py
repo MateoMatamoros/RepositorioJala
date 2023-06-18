@@ -30,6 +30,7 @@ SHIELD_TYPE = 'shield'
 HEART_TYPE = 'heart'
 BULLETS_TYPE = 'burst'
 MINIATURE_TYPE = 'miniature'
+BOMB_TYPE = 'bomb'
 
 SPACESHIP = pygame.image.load(os.path.join(IMG_DIR, "Spaceship/spaceship.png"))
 SPACESHIP_SHIELD = pygame.image.load(os.path.join(IMG_DIR, "Spaceship/spaceship_shield.png"))

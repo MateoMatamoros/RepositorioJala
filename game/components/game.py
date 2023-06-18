@@ -116,7 +116,7 @@ class Game:
 
     def draw_power_up_time(self):
         if self.player.has_power_up:
-            if self.player.power_up_type != 'heart':
+            if self.player.power_up_type != 'heart' or self.player.power_up_type != 'bomb':
                 time_to_show = round((self.player.power_time_up - pygame.time.get_ticks())/1000, 2)
                 if time_to_show >=0:
                     font = pygame.font.Font(FONT_STYLE, 30)

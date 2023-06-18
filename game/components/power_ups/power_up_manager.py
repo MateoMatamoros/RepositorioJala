@@ -1,6 +1,7 @@
 import random
 
 import pygame
+from game.components.power_ups.bomb import Bomb
 from game.components.power_ups.more_bullets import MoreBullets
 from game.components.power_ups.shield import Shield
 from game.components.power_ups.heart import Heart
@@ -53,14 +54,21 @@ class PowerUpManager:
                     game.player.set_image((30, 30), SPACESHIP)
                     self.power_ups.remove(power_up)
 
+                elif power_up.type == 'bomb':
+                    game.player.power_up_type = power_up.type
+                    game.player.has_power_up = True
+                    self.power_ups.remove(power_up)
+                    for enemy in game.enemy_manager.enemies:
+                        game.enemy_manager.enemies.remove(enemy)
+
 
     def draw(self, screen):
         for power_up in self.power_ups:
             power_up.draw(screen)
 
     def generate_power_up(self, game):
-        list_power_ups = [Shield(), MoreBullets(), Heart(), Miniature()]
-        power_up = list_power_ups[random.randint(0,3)]
+        list_power_ups = [Shield(), MoreBullets(), Heart(), Miniature(), Bomb()]
+        power_up = list_power_ups[4]
         self.when_appears += random.randint(5000, 10000)
         self.power_ups.append(power_up)
 
