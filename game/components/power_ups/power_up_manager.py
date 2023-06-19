@@ -58,7 +58,11 @@ class PowerUpManager:
                     game.player.power_up_type = power_up.type
                     game.player.has_power_up = True
                     self.power_ups.remove(power_up)
+                    enemies_to_remove = []
                     for enemy in game.enemy_manager.enemies:
+                        enemies_to_remove.append(enemy)
+                        
+                    for enemy in enemies_to_remove:
                         game.enemy_manager.enemies.remove(enemy)
 
 

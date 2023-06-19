@@ -31,7 +31,7 @@ class Game:
         pygame.mixer.music.play(-1)
         pygame.mixer.music.set_volume(0.1)
 
-        self.menu = Menu ('Press Any Key to Start...', '', '', self.screen)
+        self.menu = Menu ('Press F to Start...', '', '', '', self.screen)
 
     def execute(self):
         self.running = True
@@ -96,7 +96,7 @@ class Game:
         self.menu.reset_screen_color(self.screen)
 
         if self.death_count >0:
-            self.menu.update_message(f'Score: {self.score}', f'High Score {self.best_score}', f'Deaths: {self.death_count}')
+            self.menu.update_message(f'Score: {self.score}', f'High Score: {self.best_score}', f'Deaths: {self.death_count}', 'Press F to Start...')
 
         self.menu.draw(self.screen, self)
         self.menu.update(self)
@@ -105,10 +105,10 @@ class Game:
         self.score += 1
     
     def draw_score(self):
-        font = pygame.font.Font(FONT_STYLE, 30)
+        font = pygame.font.Font(FONT_STYLE, 25)
         text = font.render(f'Score: {self.score}', True, (255,255,255))
         text_rect = text.get_rect()
-        text_rect.center = (100, 100)
+        text_rect.center = (70, 60)
         self.screen.blit(text, text_rect)
 
     def valide_score(self):
@@ -121,10 +121,10 @@ class Game:
                 if self.player.power_up_type != 'bomb':
                     time_to_show = round((self.player.power_time_up - pygame.time.get_ticks())/1000, 2)
                     if time_to_show >=0:
-                        font = pygame.font.Font(FONT_STYLE, 30)
+                        font = pygame.font.Font(FONT_STYLE, 20)
                         text = font.render(f'{self.player.power_up_type.capitalize()} is enable for {time_to_show} seconds', True, (255,255,255))
                         text_rect = text.get_rect()
-                        self.screen.blit(text,(540, 50))
+                        self.screen.blit(text,(700, 40))
                     else:
                         self.player_has_power_up = False
                         self.player.power_up_type = DEFAULT_TYPE

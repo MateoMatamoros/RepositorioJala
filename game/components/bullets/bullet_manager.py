@@ -19,7 +19,8 @@ class BulletManager:
                     game.sound.play()
                     game.sound.set_volume(0.1)
                     game.enemy_manager.enemies.remove(enemy)
-                    self.bullets.remove(bullet)
+                    if bullet in self.enemy_bullets:
+                        self.bullets.remove(bullet)
 
         for bullet in self.enemy_bullets:
             for enemy in self.enemy_bullets:
@@ -58,7 +59,7 @@ class BulletManager:
                 if len(self.bullets) < 100:
                     self.bullets.append(bullet)
 
-        elif bullet.owner == 'enemy' and len(self.enemy_bullets) < 1:
+        elif bullet.owner == 'enemy' and len(self.enemy_bullets) < 3:
             self.enemy_bullets.append(bullet)
     
     def reset(self):
