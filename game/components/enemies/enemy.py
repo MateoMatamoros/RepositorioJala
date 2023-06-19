@@ -30,7 +30,7 @@ class Enemy(Sprite):
 
     def update(self, ships, game):
         self.rect.y += self.speed_y
-        self.shoot(game)
+        #self.shoot(game)
 
         if self.movement_x == 'left':
             self.rect.x -= self.speed_x

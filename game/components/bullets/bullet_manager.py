@@ -16,6 +16,8 @@ class BulletManager:
             for enemy in game.enemy_manager.enemies:
                 if bullet.rect.colliderect(enemy.rect) and bullet.owner == 'player':
                     game.score += 100
+                    game.sound.play()
+                    game.sound.set_volume(0.1)
                     game.enemy_manager.enemies.remove(enemy)
                     self.bullets.remove(bullet)
 
@@ -30,6 +32,8 @@ class BulletManager:
                         game.player.power_up_type = DEFAULT_TYPE
                         
                 elif game.player.power_up_type != SHIELD_TYPE and game.player.power_up_type != HEART_TYPE: 
+                    game.sound.play()
+                    game.sound.set_volume(0.1)
                     game.death_count += 1
                     game.playing = False
                     pygame.time.delay(1000)

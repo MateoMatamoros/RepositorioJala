@@ -26,9 +26,10 @@ class Game:
         self.death_count = 0
         self.score = 0
         self.best_score = 0
+        self.sound = pygame.mixer.Sound('explosion.wav')
         pygame.mixer.music.load('Music.mp3')
+        pygame.mixer.music.play(-1)
         pygame.mixer.music.set_volume(0.1)
-        pygame.mixer.music.play(3)
 
         self.menu = Menu ('Press Any Key to Start...', '', '', self.screen)
 
@@ -116,17 +117,18 @@ class Game:
 
     def draw_power_up_time(self):
         if self.player.has_power_up:
-            if self.player.power_up_type != 'heart' or self.player.power_up_type != 'bomb':
-                time_to_show = round((self.player.power_time_up - pygame.time.get_ticks())/1000, 2)
-                if time_to_show >=0:
-                    font = pygame.font.Font(FONT_STYLE, 30)
-                    text = font.render(f'{self.player.power_up_type.capitalize()} is enable for {time_to_show} seconds', True, (255,255,255))
-                    text_rect = text.get_rect()
-                    self.screen.blit(text,(540, 50))
-                else:
-                    self.player_has_power_up = False
-                    self.player.power_up_type = DEFAULT_TYPE
-                    self.player.set_image()
+            if self.player.power_up_type != 'heart':
+                if self.player.power_up_type != 'bomb':
+                    time_to_show = round((self.player.power_time_up - pygame.time.get_ticks())/1000, 2)
+                    if time_to_show >=0:
+                        font = pygame.font.Font(FONT_STYLE, 30)
+                        text = font.render(f'{self.player.power_up_type.capitalize()} is enable for {time_to_show} seconds', True, (255,255,255))
+                        text_rect = text.get_rect()
+                        self.screen.blit(text,(540, 50))
+                    else:
+                        self.player_has_power_up = False
+                        self.player.power_up_type = DEFAULT_TYPE
+                        self.player.set_image()
             else:
                 image_heart = pygame.transform.scale(HEART, (30, 30))
                 self.screen.blit(image_heart, (2, 2))

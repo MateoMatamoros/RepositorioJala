@@ -68,7 +68,7 @@ class PowerUpManager:
 
     def generate_power_up(self, game):
         list_power_ups = [Shield(), MoreBullets(), Heart(), Miniature(), Bomb()]
-        power_up = list_power_ups[4]
+        power_up = list_power_ups[random.randint(0,4)]
         self.when_appears += random.randint(5000, 10000)
         self.power_ups.append(power_up)
 

@@ -11,6 +11,7 @@ class EnemyManager:
     def update (self, game):
         self.add_enemy(game)
         for enemy in self.enemies:
+            enemy.shoot(game)
             enemy.update(self.enemies, game)
 
     def draw (self, screen):
