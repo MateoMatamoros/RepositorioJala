@@ -23,6 +23,8 @@ EXPLOSION = pygame.image.load(os.path.join(IMG_DIR, 'Other/Explosion.png'))
 
 WALLPAPER = pygame.image.load(os.path.join(IMG_DIR, 'Other/Wallpaper.png'))
 
+WALLPAPER2 = pygame.image.load(os.path.join(IMG_DIR, 'Other/Wallpaper2.png'))
+
 BULLETS = pygame.image.load(os.path.join(IMG_DIR, 'Other/Bullets.png'))
 
 DEFAULT_TYPE = "default"

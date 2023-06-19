@@ -31,7 +31,7 @@ class Game:
         pygame.mixer.music.play(-1)
         pygame.mixer.music.set_volume(0.1)
 
-        self.menu = Menu ('Press F to Start...', '', '', '', self.screen)
+        self.menu = Menu ('', '', '', self.screen)
 
     def execute(self):
         self.running = True
@@ -96,7 +96,7 @@ class Game:
         self.menu.reset_screen_color(self.screen)
 
         if self.death_count >0:
-            self.menu.update_message(f'Score: {self.score}', f'High Score: {self.best_score}', f'Deaths: {self.death_count}', 'Press F to Start...')
+            self.menu.update_message(f'Score: {self.score}', f'High Score: {self.best_score}', f'Deaths: {self.death_count}')
 
         self.menu.draw(self.screen, self)
         self.menu.update(self)
